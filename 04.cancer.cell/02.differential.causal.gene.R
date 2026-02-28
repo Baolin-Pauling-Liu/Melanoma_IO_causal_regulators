@@ -94,11 +94,25 @@ diff2.limma = limma.fun(mean.expr, final.meta.pro.sub,
                         filter = T)
 
 ##••-- DE analsyis --••##
-causal.gene <- readr::read_tsv("/home/pauling/projects/01.melanoma/09.data.new/18.causal.gene.new.Dec29.csv/cancer.cell.causal.gene.tsv")
+load("projects/01.melanoma/09.data.new/00.screen/screen.pvalue.new.rda")
+
+bind_rows(cat.res) %>%
+  dplyr::filter(fdr.x < 0.05) %>%
+  dplyr::group_by(group.x) %>%
+  dplyr::arrange(fdr.x) %>%
+  dplyr::slice(1:100) %>%
+  dplyr::ungroup() -> causal.g1.neg.immune.regulators
+
+bind_rows(cat.res) %>%
+  dplyr::filter(fdr.y < 0.05) %>%
+  dplyr::group_by(group.x) %>%
+  dplyr::arrange(fdr.y) %>%
+  dplyr::slice(1:100) %>%
+  dplyr::ungroup() -> causal.g2.pos.immune.regulators
 
 causal.gene.limma <- diff2.limma %>%
   tibble::rownames_to_column(var = "gene") %>%
-  dplyr::filter(gene %in% causal.gene$gene)
+  dplyr::filter(gene %in% c(causal.g1.neg.immune.regulators$gene, causal.g2.pos.immune.regulators$gene))
 
 causal.gene.limma$fdr <- p.adjust(causal.gene.limma$P.Value, method = "fdr")
 
