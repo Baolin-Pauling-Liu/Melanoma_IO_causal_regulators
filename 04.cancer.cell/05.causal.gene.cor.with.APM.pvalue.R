@@ -28,7 +28,6 @@ final.meta <- readr::read_rds("/home/pauling/projects/01.melanoma/09.data.new/02
 
 final.meta.pro <- final.meta %>%
   dplyr::filter(response %in% c("R","NR")) %>%
-  dplyr::mutate(Site = ifelse(site == "LN","LN","other")) %>%
   dplyr::mutate(Timepoint = ifelse(Timepoint == "pre", "pre", "post/on"))
 
 
