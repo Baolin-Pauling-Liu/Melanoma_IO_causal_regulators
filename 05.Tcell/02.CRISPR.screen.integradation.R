@@ -227,6 +227,11 @@ rank_enr <- aggregateRanks(glist = rank_enr, N = N_total, method = "RRA")
 
 save(rank_enr, res_depl, file = "projects/01.melanoma/09.data.new/06.Tcell/05.tcell.screen.rda")
 
+
+
+#--- Identify R-neg and NR-neg genes
+load("/home/pauling/projects/01.melanoma/09.data.new/00.screen/03.Tcell/CXCL13_CD8_DE.rda")  # Load CXCL13 CD8 T cell DE data --> Tcell.diff
+
 res_depl <- res_depl %>%
   dplyr::mutate(fdr = p.adjust(res_depl$Score, method = "fdr")) %>%
   dplyr::mutate(regulator = "Negative")
@@ -235,6 +240,7 @@ neg.gene <- Tcell.screen %>%  ### This is an additional filtering in addition to
   dplyr::filter(rank < 150) %>%
   dplyr::count(gene) %>%
   dplyr::filter(n > 2)
+
 
 r.neg = Tcell.diff %>%
   dplyr::filter(adj.P.Val < 0.05) %>%
