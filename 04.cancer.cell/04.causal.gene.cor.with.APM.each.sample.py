@@ -43,7 +43,7 @@ intersected_list = intersected_list
 adata_sub = adata_sub[:, intersected_list].copy()
 causal_gene = pd.read_csv('/home/pauling/projects/01.melanoma/09.data.new/19.causal.gene.new.Jan24.csv')
 
-mhcI_genes  = ["HLA-A", "HLA-B", "HLA-C", "HLA-E", "B2M","TAP1","PSMB9","IRF1"]
+mhcI_genes  = ["HLA-A", "HLA-B", "HLA-C", "HLA-E", "B2M","TAP1","PSMB9"]
 mhcII_genes = ["HLA-DRA", "HLA-DRB1", "CD74", "HLA-DRB5",
                "HLA-DPA1", "HLA-DQA1", "HLA-DPB1", "HLA-DQB1", "HLA-DMA"]
 
